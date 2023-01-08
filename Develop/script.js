@@ -4,6 +4,8 @@
 var currentDayEl = $("#currentDay");
 currentDayEl.text(dayjs().format("dddd[,] MMMM D"));
 var saveButtonEl = $(".btn");
+var scheduleContent = JSON.parse(localStorage.getItem("scheduleContent"));
+console.log(scheduleContent);
 
 $(function () {
   // TODO: Add a listener for click events on the save button. This code should
@@ -14,7 +16,15 @@ $(function () {
   // useful when saving the description in local storage?
   saveButtonEl.on("click", function(e){
     var parentId = $(e.target).parents()[0].id;
-    
+    var userContent = $($(e.target).siblings()[1]).val();
+    if(scheduleContent){
+      scheduleContent[parentId] = userContent;
+    }
+    else{
+      scheduleContent = {};
+      scheduleContent[parentId] = userContent;
+    }
+    localStorage.setItem("scheduleContent", JSON.stringify(scheduleContent));
   })
   // TODO: Add code to apply the past, present, or future class to each time
   // block by comparing the id to the current hour. HINTS: How can the id

@@ -1,99 +1,41 @@
-# 05 Third-Party APIs: Work Day Scheduler
+# Work Day Scheduler
 
-## Your Task
+## Technology Used 
 
-Create a simple calendar application that allows a user to save events for each hour of the day by modifying starter code. This app will run in the browser and feature dynamically updated HTML and CSS powered by jQuery.
+| Technology Used         | Resource URL           | 
+| ------------- |:-------------:| 
+| <img src="assets/images/js-logo.svg" alt="javascript" width="20"/> JavaScript | [https://developer.mozilla.org/en-US/docs/Web/JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript)     |  
+| <img src="assets/images/html-logo.svg" alt="html" width="20"/> HTML    | [https://developer.mozilla.org/en-US/docs/Web/HTML](https://developer.mozilla.org/en-US/docs/Web/HTML) | 
+| <img src="assets/images/css-logo.svg" alt="css" width="20"/> CSS     | [https://developer.mozilla.org/en-US/docs/Web/CSS](https://developer.mozilla.org/en-US/docs/Web/CSS)      |   
+| <img src="assets/images/git-logo.svg" alt="git" width="20"/> Git | [https://git-scm.com/](https://git-scm.com/)     |    
 
-You'll need to use the [Day.js](https://day.js.org/en/) library to work with date and time. Be sure to read the documentation carefully and concentrate on using Day.js in the browser.
+## Description 
 
-## User Story
+[Visit the Deployed Site](https://mccoydidericksen.github.io/work-day-scheduler)
 
-```md
-AS AN employee with a busy schedule
-I WANT to add important events to a daily planner
-SO THAT I can manage my time effectively
+This website provides users with an opportunity to schedule their workday by adding events to time blocks. This application uses day.js to color code each time block depending on the current time of day. By using localStorage, users can close thier browser or refresh the page without losing previously added workday events.
+
+## Functionality
+![screen-gif](assets/images/screen-functionality.gif)
+
+## Code Snippets
+The below function displays the previously entered schedule content to the correct time blocks on the webpage. The object in local storage (scheduleContent) consists of a key for each time block html id and it's associated user submitted content. Using the Object.Keys() method, we first create an array with the list of keys in the scheduleContent object. We then loop through each key and set the content on the page by using jQuery and the .children() method.  
+
+```javascript
+  var scheduleContent = JSON.parse(localStorage.getItem("scheduleContent"));
+  
+  function displayScheduleContent(){
+    if(scheduleContent){
+      var keys = Object.keys(scheduleContent);
+      for(var i=0; i<keys.length; i++){
+        var timeEl = $($("#"+keys[i]).children()[1]);
+        timeEl.text(scheduleContent[keys[i]]);
+      }
+    }
+  }
 ```
+## Learning Points 
 
-## Acceptance Criteria
-
-```md
-GIVEN I am using a daily planner to create a schedule
-WHEN I open the planner
-THEN the current day is displayed at the top of the calendar
-WHEN I scroll down
-THEN I am presented with timeblocks for standard business hours
-WHEN I view the timeblocks for that day
-THEN each timeblock is color coded to indicate whether it is in the past, present, or future
-WHEN I click into a timeblock
-THEN I can enter an event
-WHEN I click the save button for that timeblock
-THEN the text for that event is saved in local storage
-WHEN I refresh the page
-THEN the saved events persist
-```
-
-The following animation demonstrates the application functionality:
-
-<!-- @TODO: create ticket to review/update image) -->
-![A user clicks on slots on the color-coded calendar and edits the events.](./Assets/05-third-party-apis-homework-demo.gif)
-
-## Grading Requirements
-
-> **Note**: If a Challenge assignment submission is marked as “0”, it is considered incomplete and will not count towards your graduation requirements. Examples of incomplete submissions include the following:
->
-> * A repository that has no code
->
-> * A repository that includes a unique name but nothing else
->
-> * A repository that includes only a README file but nothing else
->
-> * A repository that only includes starter code
-
-This Challenge is graded based on the following criteria:
-
-### Technical Acceptance Criteria: 40%
-
-* Satisfies all of the above acceptance criteria plus the following:
-
-  * Uses a date utility library to work with date and time
-
-### Deployment: 32%
-
-* Application deployed at live URL
-
-* Application loads with no errors
-
-* Application GitHub URL submitted
-
-* GitHub repo contains application code
-
-### Application Quality: 15%
-
-* Application user experience is intuitive and easy to navigate
-
-* Application user interface style is clean and polished
-
-* Application resembles the mock-up functionality provided in the Challenge instructions
-
-### Repository Quality: 13%
-
-* Repository has a unique name
-
-* Repository follows best practices for file structure and naming conventions
-
-* Repository follows best practices for class/id naming conventions, indentation, quality comments, etc.
-
-* Repository contains multiple descriptive commit messages
-
-* Repository contains quality README file with description, screenshot, and link to deployed application
-
-## Review
-
-You are required to submit the following for review:
-
-* The URL of the deployed application
-
-* The URL of the GitHub repository, with a unique name and a README describing the project
-
-- - -
-© 2022 edX Boot Camps LLC. Confidential and Proprietary. All Rights Reserved.
+* Utilizing jQuery allows for easy selection, modification, and creation of HTML elements
+* Without explicitly adding ids to each HTML element, we can use jQuery DOM traversal methods such as .children(), .parents(), and .siblings() to dynamically select and modify HTML elements
+* Storing objects in localStorage can be an easy way to modify and add key value pairs entered by users
